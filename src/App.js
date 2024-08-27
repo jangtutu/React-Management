@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
 import Customer from './component/Costomer';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import { styled } from '@mui/system';
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  width: '100%',
+  marginTop: theme.spacing(3),
+  overflowX: 'auto'
+}));
+
+const StyledTable = styled(Table)({
+  minWidth: 1080
+});
 
 const customers = [
   {
   'id' : '1',
-  'image' : 'https://placeimg.com/640/480/any',
   'name' : '장원',
   'birthday' : '971008',
   'gender' : '남자',
@@ -13,7 +29,6 @@ const customers = [
 },  
 {
   'id' : '2',
-  'image' : 'https://placeimg.com/640/480/any',
   'name' : '장종대',
   'birthday' : '570402',
   'gender' : '남자',
@@ -21,7 +36,6 @@ const customers = [
 },  
 {
   'id' : '3',
-  'image' : 'https://placeimg.com/640/480/any',
   'name' : '최미경',
   'birthday' : '640103',
   'gender' : '여자',
@@ -31,14 +45,25 @@ const customers = [
 
 class App extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <StyledPaper>
+        <StyledTable>
+          <TableHead>
+            <TableRow>
+            <TableCell>번호</TableCell>
+            <TableCell>이름</TableCell>
+            <TableCell>생년월일</TableCell>
+            <TableCell>성별</TableCell>
+            <TableCell>직업</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
         {
           customers.map(c => {
             return <Customer
               key = {c.id}
               id = {c.id}
-              image = {c.image}
               name = {c.name}
               birthday = {c.birthday}
               gender = {c.gender}
@@ -46,7 +71,9 @@ class App extends Component {
             />
           })
         }
-      </div>
+          </TableBody>
+        </StyledTable>
+      </StyledPaper>
     );
   }
 }
