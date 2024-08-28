@@ -19,31 +19,24 @@ const StyledTable = styled(Table)({
   minWidth: 1080
 });
 
-const customers = [
-  {
-    'id': '1',
-    'name': '장원',
-    'birthday': '971008',
-    'gender': '남자',
-    'job': '대학생'
-  },
-  {
-    'id': '2',
-    'name': '장종대',
-    'birthday': '570402',
-    'gender': '남자',
-    'job': '백수'
-  },
-  {
-    'id': '3',
-    'name': '최미경',
-    'birthday': '640103',
-    'gender': '여자',
-    'job': '주부'
-  }
-]
-
 class App extends Component {
+
+  state = {
+    customers: ""
+  }
+
+  componentDidMount() {
+    this.callApi()
+    .then(res => this.setState({customers: res}))
+    .catch(err => console.log(err));
+  }
+
+  callApi = async() => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -60,7 +53,7 @@ class App extends Component {
           </TableHead>
           <TableBody>
             {
-              customers.map(c => {
+              this.state.customers ? this.state.customers.map(c => {
                 return <Customer
                   key={c.id}
                   id={c.id}
@@ -69,7 +62,7 @@ class App extends Component {
                   gender={c.gender}
                   job={c.job}
                 />
-              })
+              }) : ""
             }
           </TableBody>
         </StyledTable>
