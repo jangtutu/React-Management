@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import CircularProgress from '@mui/material/CircularProgress';
 import { styled } from '@mui/system';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -19,15 +20,21 @@ const StyledTable = styled(Table)({
   minWidth: 1080
 });
 
+const StyledProgress = styled(CircularProgress)(({ theme }) => ({
+  margin: theme.spacing(2)
+}));
+
 class App extends Component {
 
   state = {
-    customers: ""
+    customers: "",
+    completed: 0
   }
 
   componentDidMount() {
+    this.timer = setInterval(this.progress, 20);
     this.callApi()
-    .then(res => this.setState({customers: res}))
+    .then(res => this.setState({customers: res})) 
     .catch(err => console.log(err));
   }
 
@@ -35,6 +42,11 @@ class App extends Component {
     const response = await fetch('/api/customers');
     const body = await response.json();
     return body;
+  }
+
+  progress = () => {
+    const { completed } = this.state;
+    this.setState({completed:completed >= 100 ? 0 : completed + 1});
   }
 
   render() {
@@ -62,7 +74,12 @@ class App extends Component {
                   gender={c.gender}
                   job={c.job}
                 />
-              }) : ""
+              }) : 
+              <TableRow>
+                <TableCell colSpan="6" align="center">
+                  <StyledProgress variant="determinate" value={this.state.completed}/>
+                </TableCell>
+              </TableRow>
             }
           </TableBody>
         </StyledTable>
