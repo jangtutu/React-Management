@@ -1,8 +1,11 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+<<<<<<< HEAD
 # upload
 /upload
 
+=======
+>>>>>>> 6a88dc9710f48ba20f8c898654be19514131c3a7
 # database
 /database.json
 

@@ -9,7 +9,10 @@
     "dependencies": {
         "body-parser": "^1.19.0",
         "express": "^4.19.2",
+<<<<<<< HEAD
         "multer": "^1.4.5-lts.1",
+=======
+>>>>>>> 6a88dc9710f48ba20f8c898654be19514131c3a7
         "mysql": "^2.18.1",
         "nodemon": "^3.1.4"
     },

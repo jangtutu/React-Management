@@ -20,9 +20,12 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
+<<<<<<< HEAD
 const multer = require('multer');
 const upload = multer({dest: './upload'})
 
+=======
+>>>>>>> 6a88dc9710f48ba20f8c898654be19514131c3a7
 app.get('/api/customers', (req, res) =>  {
     connection.query(
       "SELECT * FROM CUSTOMER",
@@ -30,6 +33,7 @@ app.get('/api/customers', (req, res) =>  {
         res.send(rows);
       } 
     );
+<<<<<<< HEAD
 });
 
 app.use('/image', express.static('./upload'));
@@ -51,6 +55,8 @@ app.post('/api/customers', upload.single('image'),(req, res) => {
     (err, rows, fields) => {
       res.send(rows);
     });
+=======
+>>>>>>> 6a88dc9710f48ba20f8c898654be19514131c3a7
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
